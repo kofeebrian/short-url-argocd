@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: monitoring
+  template:
+    metadata:
+      labels:
+        tier: monitoring
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus
+        resources:
+          limits:
+            cpu: "300m"
+            memory: "128Mi"
+        ports:
+        - containerPort: 9090
+        volumeMounts:
+        - name: prometheus-volume
+          mountPath: /data
+      volumes:
+      - name: prometheus-volume
+        persistentVolumeClaim:
+          claimName: prometheus-pvc
+
+
+

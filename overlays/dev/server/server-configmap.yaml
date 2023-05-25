@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: server-configmap
+data:
+  MONGO_URI: mongodb://db-service:27017
+  SERVER_NAME: http://localhost:8081

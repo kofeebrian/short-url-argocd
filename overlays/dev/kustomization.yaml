@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: dev
+bases:
+- ../../base
+
+resources:
+- server/server-configmap.yaml
+# - server/server-secret.yaml
+# - web/web-configmap.yaml
+
+patches:
+- path: replicas/db.yaml
+- path: replicas/proxy.yaml
+- path: replicas/server.yaml
+- path: nginx.conf.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+- name: server-secret
+  envs:
+  - .env.secret

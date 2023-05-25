@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-service
+  labels:
+    role: backend
+    app: server
+spec:
+  type: ClusterIP
+  selector:
+    role: backend
+    app: server
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+

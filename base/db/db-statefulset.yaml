@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-statefulset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: database
+      app: db
+  serviceName: db-service
+  template:
+    metadata:
+      labels:
+        role: database
+        app: db
+    spec:
+      containers:
+      - name: mongodb
+        image: docker.io/mongo:latest
+        # command: ["/bin/sh"]
+        # args: ["-c", "mongod --replSet=rs0 --bind_ip_all"]
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-data
+          mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 2Gi

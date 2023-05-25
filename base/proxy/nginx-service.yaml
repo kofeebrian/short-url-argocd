@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+  labels:
+    role: gateway
+    app: proxy
+spec:
+  type: LoadBalancer
+  selector:
+    role: gateway
+    app: proxy
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
