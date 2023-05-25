@@ -34,10 +34,8 @@ spec:
             configMapKeyRef:
               name: server-configmap
               key: SERVER_NAME
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: server-secret
-              key: SECRET_KEY
+        envFrom:
+        - secretRef:
+            name: server-secret
         ports:
         - containerPort: 8080
