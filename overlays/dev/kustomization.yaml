@@ -7,6 +7,7 @@ bases:
 
 resources:
 - server/server-configmap.yaml
+- sealed-secrets/sealed-secret.yaml
 # - server/server-secret.yaml
 # - web/web-configmap.yaml
 
@@ -16,10 +17,17 @@ patches:
 - path: replicas/server.yaml
 - path: nginx.conf.yaml
 
+configurations:
+- configurations/seal-secret-config.yaml
+
 generatorOptions:
   disableNameSuffixHash: true
+  # annotations:
+  #   sealedsecrets.bitnami.com/managed: "true"
+  #   sealedsecrets.bitnami.com/namespace-wide: "true"
 
 secretGenerator:
 - name: server-secret
-  envs:
-  - .env.secret
+  type: Opaque
+  # envs:
+  # - .env.secret
