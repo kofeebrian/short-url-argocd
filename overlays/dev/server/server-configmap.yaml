@@ -4,4 +4,4 @@ metadata:
   name: server-configmap
 data:
   MONGO_URI: mongodb://db-service:27017
-  SERVER_NAME: http://localhost:8081
+  SERVER_NAME: http://short.domain.com
